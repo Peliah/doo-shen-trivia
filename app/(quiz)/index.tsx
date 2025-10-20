@@ -1,6 +1,4 @@
-import ErrorState from '@/components/question/ErrorState';
 import LoadingState from '@/components/question/LoadingState';
-import QuestionScreen from '@/components/question/QuestionScreen';
 import { CATEGORIES } from '@/constants/data';
 import { getRandomQuestionsByCategory } from '@/constants/question-bank';
 import { Colors } from '@/constants/theme';
@@ -10,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import QuestionScreen from '@/components/question/QuestionScreen';
 import { Question } from '@/types';
 
 export default function QuizScreen() {
@@ -22,14 +21,12 @@ export default function QuizScreen() {
     const category = CATEGORIES.find(cat => cat.id === categoryId) || CATEGORIES.find(cat => cat.id === 'javascript') || CATEGORIES[0];
 
     useEffect(() => {
-        // Load questions for the selected category
         const loadQuestions = () => {
             try {
                 const categoryQuestions = getRandomQuestionsByCategory(category.id, 10);
                 setQuestions(categoryQuestions);
             } catch (error) {
                 console.error('Error loading questions:', error);
-                // Fallback to JavaScript questions
                 const fallbackQuestions = getRandomQuestionsByCategory('javascript', 10);
                 setQuestions(fallbackQuestions);
             } finally {
@@ -42,8 +39,14 @@ export default function QuizScreen() {
 
     const handleQuizComplete = (answers: number[], timeTaken: number) => {
         console.log('Quiz completed:', { answers, timeTaken, category: category.name });
-        // TODO: Navigate to results screen
-        router.back();
+        router.replace({
+            pathname: '/(quiz)/result',
+            params: {
+                categoryId: category.id,
+                answers,
+                timeTaken,
+            },
+        });
     };
 
     const handleBackToDashboard = () => {
@@ -54,22 +57,6 @@ export default function QuizScreen() {
         return (
             <SafeAreaView style={[styles.container, { backgroundColor: isDark ? Colors.dark.background : Colors.light.background }]}>
                 <LoadingState message={`Loading ${category.name} questions...`} />
-            </SafeAreaView>
-        );
-    }
-
-    if (questions.length === 0) {
-        return (
-            <SafeAreaView style={[styles.container, { backgroundColor: isDark ? Colors.dark.background : Colors.light.background }]}>
-                <ErrorState
-                    message={`No questions available for ${category.name}. Please try another category.`}
-                    onRetry={() => {
-                        setLoading(true);
-                        const categoryQuestions = getRandomQuestionsByCategory(category.id, 10);
-                        setQuestions(categoryQuestions);
-                        setLoading(false);
-                    }}
-                />
             </SafeAreaView>
         );
     }

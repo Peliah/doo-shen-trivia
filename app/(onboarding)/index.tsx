@@ -17,7 +17,6 @@ export default function OnboardingScreen() {
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: isDark ? Colors.dark.background : Colors.light.background }]}>
             <View style={styles.content}>
-                {/* Header */}
                 <Animated.View entering={FadeInRight.delay(200)} style={styles.header}>
                     <Text style={[styles.logo, { color: isDark ? Colors.dark.text : Colors.light.text }]}>
                         Doo Shen Trivia
@@ -27,7 +26,6 @@ export default function OnboardingScreen() {
                     </NeoBrutalismText>
                 </Animated.View>
 
-                {/* Main Content */}
                 <Animated.View entering={FadeInUp.delay(400)} style={styles.mainContent}>
                     <NeoBrutalismCard variant="default" padding="lg" style={styles.featureCard}>
                         <NeoBrutalismText variant="subheading" color="primary" style={styles.featureTitle}>
@@ -48,7 +46,6 @@ export default function OnboardingScreen() {
                     </NeoBrutalismCard>
                 </Animated.View>
 
-                {/* CTA Button */}
                 <Animated.View entering={SlideInRight.delay(600)} style={styles.buttonContainer}>
                     <NeoBrutalismButton
                         title="Get Started"

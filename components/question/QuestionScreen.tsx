@@ -32,7 +32,6 @@ export default function QuestionScreen({
     const currentQuestion = questions[currentQuestionIndex];
     const hasSelectedAnswer = selectedAnswers[currentQuestionIndex] !== null;
 
-    // Timer effect
     useEffect(() => {
         const handleNextQuestion = () => {
             if (currentQuestionIndex < questions.length - 1) {
@@ -44,7 +43,6 @@ export default function QuestionScreen({
         const timer = setInterval(() => {
             setTimeRemaining((prev) => {
                 if (prev <= 1) {
-                    // Auto-submit current answer if time runs out
                     handleNextQuestion();
                     return 25;
                 }
@@ -78,7 +76,7 @@ export default function QuestionScreen({
     const handleSubmit = () => {
         const timeTakenMs = Date.now() - quizStartTime;
         const timeTaken = Math.floor(timeTakenMs / 1000);
-        const finalAnswers = selectedAnswers.map(answer => answer ?? 0); // Default to 0 if null
+        const finalAnswers = selectedAnswers.map(answer => answer ?? 0);
         onQuizComplete(finalAnswers, timeTaken);
     };
 
@@ -93,29 +91,26 @@ export default function QuestionScreen({
     }
 
     return (
-        <SafeAreaView style={[styles.container, { backgroundColor: isDark ? Colors.dark.background : Colors.light.background }]}>
+        <>
+            <QuestionHeader
+                currentQuestion={currentQuestionIndex + 1}
+                totalQuestions={questions.length}
+                category={category}
+                timeRemaining={timeRemaining}
+                showTimer={true}
+            />
             <ScrollView
                 style={styles.scrollView}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.scrollContent}
             >
-                {/* Header */}
-                <QuestionHeader
-                    currentQuestion={currentQuestionIndex + 1}
-                    totalQuestions={questions.length}
-                    category={category}
-                    timeRemaining={timeRemaining}
-                    showTimer={true}
-                />
 
-                {/* Question Card */}
                 <QuestionCard
                     question={currentQuestion}
                     selectedAnswer={selectedAnswers[currentQuestionIndex] ?? undefined}
                     onAnswerSelect={handleAnswerSelect}
                 />
 
-                {/* Footer */}
                 <QuestionFooter
                     currentQuestion={currentQuestionIndex + 1}
                     totalQuestions={questions.length}
@@ -125,16 +120,16 @@ export default function QuestionScreen({
                     onSubmit={handleSubmit}
                 />
             </ScrollView>
-        </SafeAreaView>
+        </>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
     },
     scrollView: {
-        flex: 1,
+        // flex: 1,
     },
     scrollContent: {
         paddingHorizontal: 24,

@@ -40,9 +40,7 @@ export default function QuestionHeader({
                 backgroundColor: isDark ? Colors.dark.cardBackground : Colors.light.cardBackground,
             }}
         >
-            {/* Top Row: Progress and Timer */}
             <View style={styles.topRow}>
-                {/* Progress */}
                 <View style={styles.progressContainer}>
                     <NeoBrutalismText variant="subheading" color="primary" style={styles.progressText}>
                         {currentQuestion}/{totalQuestions}
@@ -60,7 +58,6 @@ export default function QuestionHeader({
                     </View>
                 </View>
 
-                {/* Timer */}
                 {showTimer && (
                     <NeoBrutalismCard
                         variant={timeRemaining <= 5 ? 'dark' : 'accent'}
@@ -74,7 +71,6 @@ export default function QuestionHeader({
                 )}
             </View>
 
-            {/* Category Badge */}
             <View style={styles.categoryContainer}>
                 <NeoBrutalismCard
                     variant="accent"
