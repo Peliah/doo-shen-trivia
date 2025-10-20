@@ -2,6 +2,7 @@ import { NeoBrutalismButton, NeoBrutalismCard, NeoBrutalismInput, NeoBrutalismTe
 import { AVATAR_OPTIONS } from '@/constants/data';
 import { Colors } from '@/constants/theme';
 import { useTheme } from '@/contexts/ThemeContext';
+import { UserStorage } from '@/utils/storage';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -19,12 +20,35 @@ export default function UsernameSetupScreen() {
         return name.length >= 3 && name.length <= 15 && /^[a-zA-Z0-9_]+$/.test(name);
     };
 
-    const handleContinue = () => {
+    const handleContinue = async () => {
         if (!validateUsername(username)) {
             Alert.alert('Invalid Username', 'Username must be 3-15 characters and contain only letters, numbers, and underscores.');
             return;
         }
-        router.push('/(onboarding)/tech-interests');
+
+        try {
+            // Save user data
+            await UserStorage.saveUser({
+                userId: `user_${Date.now()}`,
+                username: username,
+                avatar: selectedAvatar,
+                techInterests: [],
+                stats: {
+                    totalGames: 0,
+                    averageScore: 0,
+                    bestScore: 0,
+                    categoryStats: {}
+                },
+                achievements: [],
+                friends: [],
+                createdAt: new Date().toISOString()
+            });
+
+            router.push('/(onboarding)/tech-interests');
+        } catch (error) {
+            console.error('Error saving user data:', error);
+            Alert.alert('Error', 'Failed to save user data. Please try again.');
+        }
     };
 
     return (

@@ -4,12 +4,21 @@ import { STORAGE_KEYS, StorageUtils } from './base';
 export class AppStorage {
     static async isFirstLaunch(): Promise<boolean> {
         try {
-            const isFirstLaunch = await StorageUtils.getItem<string>(STORAGE_KEYS.FIRST_LAUNCH);
-            return isFirstLaunch === null;
+            const firstLaunchValue = await StorageUtils.getItem<string>(STORAGE_KEYS.FIRST_LAUNCH);
+            // If no value exists, it's the first launch
+            if (firstLaunchValue === null) {
+                return true;
+            }
+            // Return true if the stored value is 'true', false otherwise
+            return firstLaunchValue === 'true';
         } catch (error) {
             console.error('Error checking first launch:', error);
             return true;
         }
+    }
+
+    static async setFirstLaunch(isFirstLaunch: boolean): Promise<void> {
+        await StorageUtils.saveItem(STORAGE_KEYS.FIRST_LAUNCH, isFirstLaunch ? 'true' : 'false');
     }
 
     static async setFirstLaunchComplete(): Promise<void> {

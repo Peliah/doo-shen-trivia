@@ -2,9 +2,12 @@ import { NeoBrutalismButton, NeoBrutalismCard, NeoBrutalismText } from '@/compon
 import { TECH_INTERESTS } from '@/constants/data';
 import { Colors } from '@/constants/theme';
 import { useTheme } from '@/contexts/ThemeContext';
+import { TechInterest } from '@/types';
+import { UserStorage } from '@/utils/storage';
+import { AppStorage } from '@/utils/storage/app';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeInRight, FadeInUp, SlideInLeft } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -22,8 +25,32 @@ export default function TechInterestsScreen() {
         );
     };
 
-    const handleFinishSetup = () => {
-        router.push('/(dashboard)');
+    const handleFinishSetup = async () => {
+        try {
+            // Get current user data
+            const currentUser = await UserStorage.getUser();
+            if (!currentUser) {
+                Alert.alert('Error', 'User data not found. Please restart the onboarding process.');
+                return;
+            }
+
+            // Update user with tech interests
+            const updatedUser = {
+                ...currentUser,
+                techInterests: selectedInterests as TechInterest[]
+            };
+
+            await UserStorage.saveUser(updatedUser);
+
+            // Mark onboarding as complete
+            await AppStorage.setFirstLaunch(false);
+
+            // Navigate to dashboard
+            router.replace('/(dashboard)' as any);
+        } catch (error) {
+            console.error('Error completing setup:', error);
+            Alert.alert('Error', 'Failed to complete setup. Please try again.');
+        }
     };
 
     return (
