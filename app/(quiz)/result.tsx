@@ -1,7 +1,5 @@
 import ActionButtons from '@/components/result-review/ActionButtons';
-import CategoryPerformanceBars from '@/components/result-review/CategoryPerformanceBars';
 import MainMetrics from '@/components/result-review/MainMetrics';
-import ProgressCircle from '@/components/result-review/ProgressCircle';
 import { Colors } from '@/constants/theme';
 import { useTheme } from '@/contexts/ThemeContext';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -75,10 +73,10 @@ export default function ResultScreen() {
                 />
 
                 {/* Progress Circle */}
-                <ProgressCircle score={score} />
+                {/* <ProgressCircle score={score} /> */}
 
                 {/* Category Performance */}
-                <CategoryPerformanceBars categoryBreakdown={categoryBreakdown} />
+                {/* <CategoryPerformanceBars categoryBreakdown={categoryBreakdown} /> */}
 
                 {/* Action Buttons */}
                 <ActionButtons

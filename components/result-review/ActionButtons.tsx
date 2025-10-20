@@ -29,15 +29,13 @@ export default function ActionButtons({
                 backgroundColor: isDark ? Colors.dark.cardBackground : Colors.light.cardBackground,
             }}
         >
-            {/* Worker Image */}
             <View style={styles.workerContainer}>
                 <Image source={randomWorker} style={styles.workerImage} />
             </View>
 
-            {/* Action Buttons */}
             <View style={styles.contentContainer}>
                 <NeoBrutalismText variant="subheading" color="primary" style={styles.title}>
-                    What's Next?
+                    What&apos;s Next?
                 </NeoBrutalismText>
 
                 <View style={styles.buttonsContainer}>

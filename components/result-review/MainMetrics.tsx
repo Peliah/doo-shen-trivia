@@ -26,11 +26,11 @@ export default function MainMetrics({
 
     const getPerformanceMessage = (level: string): string => {
         switch (level) {
-            case 'Excellent': return 'Outstanding work! 🎉';
-            case 'Good': return 'Good job! 👍';
-            case 'Fair': return 'Not bad! Keep practicing! 💪';
-            case 'Needs Improvement': return 'Keep learning! 📚';
-            default: return 'Good job! 👍';
+            case 'Excellent': return 'Outstanding work!';
+            case 'Good': return 'Good job!';
+            case 'Fair': return 'Not bad! Keep practicing!';
+            case 'Needs Improvement': return 'Keep learning!';
+            default: return 'Good job!';
         }
     };
 
@@ -43,8 +43,13 @@ export default function MainMetrics({
                 backgroundColor: isDark ? Colors.dark.cardBackground : Colors.light.cardBackground,
             }}
         >
-            <View style={styles.workerContainer}>
-                <Image source={randomWorker} style={styles.workerImage} />
+            <View style={styles.headerContainer}>
+                <View style={styles.workerContainer}>
+                    <Image source={randomWorker} style={styles.workerImage} />
+                </View>
+                <NeoBrutalismText variant="body" color="primary" style={styles.performanceText}>
+                    {getPerformanceMessage(performanceLevel)}
+                </NeoBrutalismText>
             </View>
 
             <View style={styles.metricsContainer}>
@@ -63,12 +68,6 @@ export default function MainMetrics({
                         ⏱️ Time Taken: {Math.floor(timeTaken / 60)}m {timeTaken % 60}s
                     </NeoBrutalismText>
                 </NeoBrutalismCard>
-
-                <NeoBrutalismCard variant="accent" padding="base" style={styles.performanceCard}>
-                    <NeoBrutalismText variant="subheading" color="primary" style={styles.performanceText}>
-                        {getPerformanceMessage(performanceLevel)}
-                    </NeoBrutalismText>
-                </NeoBrutalismCard>
             </View>
         </NeoBrutalismCard>
     );
@@ -80,9 +79,18 @@ const styles = StyleSheet.create({
         gap: 20,
         marginBottom: 16,
     },
+    headerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+        width: '100%',
+    },
     workerContainer: {
-        width: 120,
-        height: 120,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+        width: 70,
+        height: 70,
         overflow: 'hidden',
     },
     workerImage: {
