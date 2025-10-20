@@ -11,7 +11,7 @@ const QuizCarousel = () => {
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={styles.listContent}
-                renderItem={({ item }) => <QuizItem category={item} />}
+                renderItem={({ item }) => (<QuizItem category={item} />)}
             />
         </View>
     )

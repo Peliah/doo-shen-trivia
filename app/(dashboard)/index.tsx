@@ -1,10 +1,11 @@
 import MainDashboardHeader from '@/components/main-dashboard/Header';
 import QuizCarousel from '@/components/main-dashboard/QuizCarousel';
+import RecentQuizzes from '@/components/main-dashboard/RecentQuizzes';
 import { NeoBrutalismCard, NeoBrutalismText } from '@/components/neo-brutalism';
 import { Colors } from '@/constants/theme';
 import { useTheme } from '@/contexts/ThemeContext';
-import { User } from '@/types';
-import { UserStorage } from '@/utils/storage';
+import { QuizResult, User } from '@/types';
+import { ResultsStorage, UserStorage } from '@/utils/storage';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -12,6 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function DashboardHomeScreen() {
     const { isDark } = useTheme();
     const [user, setUser] = useState<User | null>(null);
+    const [recentQuizzes, setRecentQuizzes] = useState<QuizResult[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -19,6 +21,14 @@ export default function DashboardHomeScreen() {
             try {
                 const userData = await UserStorage.getUser();
                 setUser(userData);
+
+                // Load recent quiz results
+                const quizResults = await ResultsStorage.getQuizResults();
+                // Sort by creation date (most recent first) and take first 3
+                const sortedResults = quizResults
+                    .sort((a: QuizResult, b: QuizResult) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                    .slice(0, 3);
+                setRecentQuizzes(sortedResults);
             } catch (error) {
                 console.error('Error loading user data:', error);
             } finally {
@@ -50,6 +60,7 @@ export default function DashboardHomeScreen() {
             </View>
             <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
                 <QuizCarousel />
+                <RecentQuizzes recentQuizzes={recentQuizzes} />
             </ScrollView>
         </SafeAreaView>
     );
