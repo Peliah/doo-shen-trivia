@@ -1,11 +1,12 @@
 import MainDashboardHeader from '@/components/main-dashboard/Header';
+import QuizCarousel from '@/components/main-dashboard/QuizCarousel';
 import { NeoBrutalismCard, NeoBrutalismText } from '@/components/neo-brutalism';
 import { Colors } from '@/constants/theme';
 import { useTheme } from '@/contexts/ThemeContext';
 import { User } from '@/types';
 import { UserStorage } from '@/utils/storage';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function DashboardHomeScreen() {
@@ -44,24 +45,12 @@ export default function DashboardHomeScreen() {
 
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: isDark ? Colors.dark.background : Colors.light.background }]}>
-            <View style={styles.content}>
-                <View style={styles.headerContainer}>
-                    <MainDashboardHeader user={user} points={user?.stats?.totalGames ?? 0} />
-                </View>
-                <NeoBrutalismCard variant="accent" padding="xl" style={styles.welcomeCard}>
-                    <NeoBrutalismText variant="heading" color="primary" style={styles.title}>
-                        Welcome back, {user?.username || 'User'}!
-                    </NeoBrutalismText>
-                    <NeoBrutalismText variant="body" color="primary" style={styles.subtitle}>
-                        Ready to test your tech knowledge?
-                    </NeoBrutalismText>
-                    {user?.techInterests && user.techInterests.length > 0 && (
-                        <NeoBrutalismText variant="caption" color="primary" style={styles.interests}>
-                            Interests: {user.techInterests.join(', ')}
-                        </NeoBrutalismText>
-                    )}
-                </NeoBrutalismCard>
+            <View style={styles.headerContainer}>
+                <MainDashboardHeader user={user} points={user?.stats?.totalGames ?? 0} />
             </View>
+            <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
+                <QuizCarousel />
+            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -75,10 +64,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
         paddingVertical: 20,
         gap: 16,
-        alignItems: 'center',
+        // alignItems: 'center',
     },
     headerContainer: {
         alignSelf: 'stretch',
+        backgroundColor: '#000',
     },
     welcomeCard: {
         alignItems: 'center',
