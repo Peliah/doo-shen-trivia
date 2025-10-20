@@ -22,7 +22,7 @@ export function getRandomWorker(): any {
         require('@/assets/images/workers/worker18.png'),
     ];
 
-    const randomIndex = Math.floor(Math.random() * workers.length);
-    return workers[randomIndex];
+    // const randomIndex = Math.floor(Math.random() * workers.length);
+    return workers[Math.floor(Math.random() * 10)];
 }
 

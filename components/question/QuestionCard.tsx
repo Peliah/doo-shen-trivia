@@ -2,6 +2,8 @@ import { NeoBrutalismCard, NeoBrutalismText } from '@/components/neo-brutalism';
 import { Colors } from '@/constants/theme';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Question } from '@/types';
+import { getRandomWorker } from '@/utils';
+import { Image } from 'expo-image';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
@@ -23,10 +25,13 @@ export default function QuestionCard({ question, selectedAnswer, onAnswerSelect 
                 backgroundColor: isDark ? Colors.dark.cardBackground : Colors.light.cardBackground,
             }}
         >
-            {/* Question Text */}
-            <NeoBrutalismText variant="heading" color="primary" style={styles.questionText}>
-                {question.question}
-            </NeoBrutalismText>
+            <View style={styles.imageContainer}>
+                <Image source={getRandomWorker()} style={styles.image} />
+                {/* Question Text */}
+                <NeoBrutalismText variant="subheading" color="primary" style={styles.questionText}>
+                    {question.question}
+                </NeoBrutalismText>
+            </View>
 
             {/* Code Snippet (if applicable) */}
             {question.codeSnippet && (
@@ -93,11 +98,22 @@ export default function QuestionCard({ question, selectedAnswer, onAnswerSelect 
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         marginBottom: 16,
+    },
+    imageContainer: {
+        width: '100%',
+        // flexDirection: 'row',
+        // alignItems: 'center',
+        gap: 12,
     },
     questionText: {
         marginBottom: 16,
-        lineHeight: 24,
+    },
+    image: {
+        width: 50,
+        height: 50,
+        borderRadius: 100,
     },
     codeContainer: {
         marginBottom: 20,

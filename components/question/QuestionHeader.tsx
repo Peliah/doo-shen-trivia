@@ -71,6 +71,7 @@ export default function QuestionHeader({
                 )}
             </View>
 
+            {/* Category Badge */}
             <View style={styles.categoryContainer}>
                 <NeoBrutalismCard
                     variant="accent"
