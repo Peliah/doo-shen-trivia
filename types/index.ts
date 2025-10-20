@@ -51,7 +51,7 @@ export interface Category {
 export interface Question {
     questionId: string;
     category: string;
-    difficulty: 'easy' | 'medium' | 'hard';
+    difficulty: 'medium' | 'medium' | 'hard';
     type: 'multiple_choice' | 'true_false' | 'code_output' | 'fill_blank';
     question: string;
     codeSnippet?: string;
@@ -68,7 +68,7 @@ export interface QuizSession {
     userId: string;
     mode: 'single_player' | 'multiplayer';
     category: string;
-    difficulty: 'easy' | 'medium' | 'hard';
+    difficulty: 'medium' | 'medium' | 'hard';
     questions: string[]; // Array of question IDs
     answers: Answer[];
     score?: number;

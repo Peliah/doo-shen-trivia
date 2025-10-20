@@ -40,7 +40,7 @@ export const analyzeQuestionPerformance = (questionId: string, userAnswer: numbe
     };
 };
 
-export const getQuestionDifficultyMultiplier = (difficulty: 'easy' | 'medium' | 'hard'): number => {
+export const getQuestionDifficultyMultiplier = (difficulty: 'medium' | 'medium' | 'hard'): number => {
     switch (difficulty) {
         case 'easy': return 1;
         case 'medium': return 1.5;
@@ -52,7 +52,7 @@ export const getQuestionDifficultyMultiplier = (difficulty: 'easy' | 'medium' | 
 export const calculateQuestionScore = (
     isCorrect: boolean,
     timeSpent: number,
-    difficulty: 'easy' | 'medium' | 'hard',
+    difficulty: 'medium' | 'medium' | 'hard',
     maxTime: number = 30
 ): number => {
     if (!isCorrect) return 0;

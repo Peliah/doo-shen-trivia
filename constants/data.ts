@@ -122,7 +122,7 @@ export const QUESTIONS_DATABASE: Record<string, Question> = {
     'js-1': {
         questionId: 'js-1',
         category: 'javascript',
-        difficulty: 'easy',
+        difficulty: 'medium',
         type: 'multiple_choice',
         question: 'What is the correct way to declare a variable in JavaScript?',
         options: [
@@ -152,7 +152,7 @@ export const QUESTIONS_DATABASE: Record<string, Question> = {
     'js-3': {
         questionId: 'js-3',
         category: 'javascript',
-        difficulty: 'hard',
+        difficulty: 'medium',
         type: 'code_output',
         question: 'What is the output of this closure example?',
         codeSnippet: 'function outer() {\n  let x = 10;\n  return function inner() {\n    return x++;\n  };\n}\nconst fn = outer();\nconsole.log(fn());\nconsole.log(fn());',
@@ -165,7 +165,7 @@ export const QUESTIONS_DATABASE: Record<string, Question> = {
     'react-1': {
         questionId: 'react-1',
         category: 'react',
-        difficulty: 'easy',
+        difficulty: 'medium',
         type: 'multiple_choice',
         question: 'What is JSX in React?',
         options: [
@@ -199,7 +199,7 @@ export const QUESTIONS_DATABASE: Record<string, Question> = {
     'python-1': {
         questionId: 'python-1',
         category: 'python',
-        difficulty: 'easy',
+        difficulty: 'medium',
         type: 'multiple_choice',
         question: 'What is the correct way to create a list in Python?',
         options: [
@@ -216,7 +216,7 @@ export const QUESTIONS_DATABASE: Record<string, Question> = {
     'web-1': {
         questionId: 'web-1',
         category: 'web-development',
-        difficulty: 'easy',
+        difficulty: 'medium',
         type: 'multiple_choice',
         question: 'What does HTML stand for?',
         options: [
@@ -245,7 +245,7 @@ export const QUESTIONS_DATABASE: Record<string, Question> = {
     'react-3': {
         questionId: 'react-3',
         category: 'react',
-        difficulty: 'hard',
+        difficulty: 'medium',
         type: 'code_output',
         question: 'What will be logged to the console?',
         codeSnippet: 'const [count, setCount] = useState(0);\nuseEffect(() => {\n  setCount(count + 1);\n}, [count]);\nconsole.log(count);',
@@ -263,7 +263,7 @@ export const getQuestionsByCategory = (category: string, difficulty?: 'easy' | '
     return difficulty ? questions.filter(q => q.difficulty === difficulty) : questions;
 };
 
-export const getRandomQuestions = (category: string, difficulty: 'easy' | 'medium' | 'hard', count: number = 10): string[] => {
+export const getRandomQuestions = (category: string, difficulty: 'medium' | 'medium' | 'hard', count: number = 10): string[] => {
     const questions = getQuestionsByCategory(category, difficulty);
     const shuffled = questions.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count).map(q => q.questionId);

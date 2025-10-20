@@ -4,7 +4,7 @@ import { Answer, QuizSession } from '@/types';
 export const createQuizSession = (
     userId: string,
     category: string,
-    difficulty: 'easy' | 'medium' | 'hard',
+    difficulty: 'medium' | 'medium' | 'hard',
     questionIds: string[],
     mode: 'single_player' | 'multiplayer' = 'single_player'
 ): QuizSession => {
