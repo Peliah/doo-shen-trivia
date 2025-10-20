@@ -7,6 +7,7 @@ import { Colors } from '@/constants/theme';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Category, QuizResult, User } from '@/types';
 import { ResultsStorage, UserStorage } from '@/utils/storage';
+import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -49,8 +50,11 @@ export default function DashboardHomeScreen() {
 
     const handleStartQuiz = () => {
         setModalVisible(false);
-        // TODO: Navigate to quiz screen
-        console.log('Starting quiz for category:', selectedCategory?.name);
+        // Navigate to quiz screen with category parameter
+        router.push({
+            pathname: '/(quiz)' as any,
+            params: { categoryId: selectedCategory?.id }
+        });
     };
 
     const handleCloseModal = () => {

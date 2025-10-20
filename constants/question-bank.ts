@@ -2593,3 +2593,41 @@ export const NODEJS_QUESTIONS: Question[] = [
         tags: ['buffer', 'binary-data'],
     },
 ];
+
+// Utility function to get questions by category
+export function getQuestionsByCategory(categoryId: string): Question[] {
+    switch (categoryId) {
+        case 'web':
+        case 'web-development':
+            return WEB_QUESTIONS;
+        case 'mobile':
+        case 'mobile-development':
+            return MOBILE_QUESTIONS;
+        case 'ai':
+        case 'ai-machine-learning':
+            return AI_QUESTIONS;
+        case 'cybersecurity':
+            return CYBERSECURITY_QUESTIONS;
+        case 'data-science':
+            return DATA_SCIENCE_QUESTIONS;
+        case 'cloud-devops':
+            return CLOUD_DEVOPS_QUESTIONS;
+        case 'javascript':
+            return JAVASCRIPT_QUESTIONS;
+        case 'python':
+            return PYTHON_QUESTIONS;
+        case 'react':
+            return REACT_QUESTIONS;
+        case 'nodejs':
+            return NODEJS_QUESTIONS;
+        default:
+            return JAVASCRIPT_QUESTIONS; // Default fallback
+    }
+}
+
+// Get random questions from a category
+export function getRandomQuestionsByCategory(categoryId: string, count: number = 10): Question[] {
+    const questions = getQuestionsByCategory(categoryId);
+    const shuffled = [...questions].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, count);
+}
