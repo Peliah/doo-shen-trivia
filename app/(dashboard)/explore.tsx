@@ -13,7 +13,7 @@ export default function ExploreScreen() {
             <View style={styles.content}>
                 <NeoBrutalismCard variant="default" padding="xl" style={styles.card}>
                     <NeoBrutalismText variant="heading" color="primary" style={styles.title}>
-                        🧠 Explore Categories
+                        Explore Categories
                     </NeoBrutalismText>
                     <NeoBrutalismText variant="body" color="secondary" style={styles.subtitle}>
                         Choose your tech interests and start quizzing!

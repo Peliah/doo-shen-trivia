@@ -109,14 +109,12 @@ export const DIFFICULTY_LEVELS: DifficultyLevel[] = [
 
 // Avatar Options
 export const AVATAR_OPTIONS: AvatarOption[] = [
-    { id: 'developer', name: 'Developer', emoji: '👨‍💻', color: '#4ECDC4' },
-    { id: 'hacker', name: 'Hacker', emoji: '👨‍💻', color: '#45B7D1' },
-    { id: 'designer', name: 'Designer', emoji: '🎨', color: '#96CEB4' },
-    { id: 'scientist', name: 'Data Scientist', emoji: '🔬', color: '#FFEAA7' },
-    { id: 'robot', name: 'AI Enthusiast', emoji: '🤖', color: '#DDA0DD' },
-    { id: 'ninja', name: 'Code Ninja', emoji: '🥷', color: '#FF6B6B' },
-    { id: 'wizard', name: 'Tech Wizard', emoji: '🧙‍♂️', color: '#98D8C8' },
-    { id: 'astronaut', name: 'Space Explorer', emoji: '🚀', color: '#F7DC6F' },
+    { id: 'avatar1', name: 'Avatar 1', image: require('@/assets/images/avatars/avatar1.png'), color: '#4ECDC4' },
+    { id: 'avatar2', name: 'Avatar 2', image: require('@/assets/images/avatars/avatar2.png'), color: '#45B7D1' },
+    { id: 'avatar3', name: 'Avatar 3', image: require('@/assets/images/avatars/avatar3.png'), color: '#96CEB4' },
+    { id: 'avatar4', name: 'Avatar 4', image: require('@/assets/images/avatars/avatar4.png'), color: '#FFEAA7' },
+    { id: 'avatar5', name: 'Avatar 5', image: require('@/assets/images/avatars/avatar5.png'), color: '#DDA0DD' },
+    { id: 'avatar6', name: 'Avatar 6', image: require('@/assets/images/avatars/avatar6.png'), color: '#FF6B6B' },
 ];
 
 // Sample Questions Database (This would typically come from an API or database)

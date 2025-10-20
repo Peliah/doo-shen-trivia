@@ -13,7 +13,7 @@ export default function ProfileScreen() {
             <View style={styles.content}>
                 <NeoBrutalismCard variant="default" padding="xl" style={styles.card}>
                     <NeoBrutalismText variant="heading" color="primary" style={styles.title}>
-                        👤 Your Profile
+                        Your Profile
                     </NeoBrutalismText>
                     <NeoBrutalismText variant="body" color="secondary" style={styles.subtitle}>
                         View your stats, achievements, and progress!

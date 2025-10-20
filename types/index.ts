@@ -163,7 +163,7 @@ export type RootStackParamList = {
 export interface AvatarOption {
     id: string;
     name: string;
-    emoji: string;
+    image: any; // React Native ImageSourcePropType
     color: string;
 }
 

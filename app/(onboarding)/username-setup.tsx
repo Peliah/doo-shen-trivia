@@ -4,8 +4,9 @@ import { Colors } from '@/constants/theme';
 import { useTheme } from '@/contexts/ThemeContext';
 import { UserStorage } from '@/utils/storage';
 import { router } from 'expo-router';
+import { Image } from 'expo-image';
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeInRight, FadeInUp, SlideInLeft } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -14,7 +15,7 @@ const TouchableOpacityAnimated = Animated.createAnimatedComponent(TouchableOpaci
 export default function UsernameSetupScreen() {
     const { isDark } = useTheme();
     const [username, setUsername] = useState('');
-    const [selectedAvatar, setSelectedAvatar] = useState('developer');
+    const [selectedAvatar, setSelectedAvatar] = useState('avatar1');
 
     const validateUsername = (name: string): boolean => {
         return name.length >= 3 && name.length <= 15 && /^[a-zA-Z0-9_]+$/.test(name);
@@ -97,7 +98,7 @@ export default function UsernameSetupScreen() {
                                     padding="base"
                                     style={styles.avatarOption}
                                 >
-                                    <Text style={styles.avatarEmoji}>{avatar.emoji}</Text>
+                                    <Image source={avatar.image} style={styles.avatarImage} />
                                     <NeoBrutalismText variant="caption" color="primary" style={styles.avatarName}>
                                         {avatar.name}
                                     </NeoBrutalismText>
@@ -164,8 +165,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         minWidth: 80,
     },
-    avatarEmoji: {
-        fontSize: 24,
+    avatarImage: {
+        width: 40,
+        height: 40,
         marginBottom: 4,
     },
     avatarName: {

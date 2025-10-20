@@ -46,7 +46,7 @@ export default function DashboardHomeScreen() {
             <View style={styles.content}>
                 <NeoBrutalismCard variant="accent" padding="xl" style={styles.welcomeCard}>
                     <NeoBrutalismText variant="heading" color="primary" style={styles.title}>
-                        🎉 Welcome back, {user?.username || 'User'}!
+                        Welcome back, {user?.username || 'User'}!
                     </NeoBrutalismText>
                     <NeoBrutalismText variant="body" color="primary" style={styles.subtitle}>
                         Ready to test your tech knowledge?

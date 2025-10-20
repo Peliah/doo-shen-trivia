@@ -20,7 +20,7 @@ export default function OnboardingScreen() {
                 {/* Header */}
                 <Animated.View entering={FadeInRight.delay(200)} style={styles.header}>
                     <Text style={[styles.logo, { color: isDark ? Colors.dark.text : Colors.light.text }]}>
-                        🧠 Doo Shen Trivia
+                        Doo Shen Trivia
                     </Text>
                     <NeoBrutalismText variant="heading" color="primary" style={styles.title}>
                         Test Your Tech Knowledge
@@ -30,7 +30,6 @@ export default function OnboardingScreen() {
                 {/* Main Content */}
                 <Animated.View entering={FadeInUp.delay(400)} style={styles.mainContent}>
                     <NeoBrutalismCard variant="default" padding="lg" style={styles.featureCard}>
-                        <Text style={styles.featureIcon}>⚡</Text>
                         <NeoBrutalismText variant="subheading" color="primary" style={styles.featureTitle}>
                             10 Questions
                         </NeoBrutalismText>
@@ -40,7 +39,6 @@ export default function OnboardingScreen() {
                     </NeoBrutalismCard>
 
                     <NeoBrutalismCard variant="accent" padding="lg" style={styles.featureCard}>
-                        <Text style={styles.featureIcon}>🎯</Text>
                         <NeoBrutalismText variant="subheading" color="primary" style={styles.featureTitle}>
                             Instant Results
                         </NeoBrutalismText>
@@ -94,10 +92,6 @@ const styles = StyleSheet.create({
     },
     featureCard: {
         alignItems: 'center',
-    },
-    featureIcon: {
-        fontSize: 48,
-        marginBottom: 12,
     },
     featureTitle: {
         marginBottom: 8,
