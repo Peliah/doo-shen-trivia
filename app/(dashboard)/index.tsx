@@ -1,3 +1,4 @@
+import MainDashboardHeader from '@/components/main-dashboard/Header';
 import { NeoBrutalismCard, NeoBrutalismText } from '@/components/neo-brutalism';
 import { Colors } from '@/constants/theme';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -44,6 +45,9 @@ export default function DashboardHomeScreen() {
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: isDark ? Colors.dark.background : Colors.light.background }]}>
             <View style={styles.content}>
+                <View style={styles.headerContainer}>
+                    <MainDashboardHeader user={user} points={user?.stats?.totalGames ?? 0} />
+                </View>
                 <NeoBrutalismCard variant="accent" padding="xl" style={styles.welcomeCard}>
                     <NeoBrutalismText variant="heading" color="primary" style={styles.title}>
                         Welcome back, {user?.username || 'User'}!
@@ -70,8 +74,11 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 24,
         paddingVertical: 20,
-        justifyContent: 'center',
+        gap: 16,
         alignItems: 'center',
+    },
+    headerContainer: {
+        alignSelf: 'stretch',
     },
     welcomeCard: {
         alignItems: 'center',

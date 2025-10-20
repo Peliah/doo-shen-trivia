@@ -7,7 +7,7 @@ import { UserStorage } from '@/utils/storage';
 import { AppStorage } from '@/utils/storage/app';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeInRight, FadeInUp, SlideInLeft } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -66,41 +66,43 @@ export default function TechInterestsScreen() {
                     </NeoBrutalismText>
                 </Animated.View>
 
-                {/* Interest Selection */}
-                <Animated.View entering={SlideInLeft.delay(400)} style={styles.interestsSection}>
-                    <View style={styles.interestsGrid}>
-                        {Object.entries(TECH_INTERESTS).map(([key, interest], index) => (
-                            <TouchableOpacityAnimated
-                                key={key}
-                                entering={FadeInUp.delay(600 + index * 100)}
-                                onPress={() => toggleInterest(key)}
-                                activeOpacity={0.8}
-                            >
-                                <NeoBrutalismCard
-                                    variant={selectedInterests.includes(key) ? 'accent' : 'default'}
-                                    padding="lg"
-                                    style={styles.interestCard}
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    {/* Interest Selection */}
+                    <Animated.View entering={SlideInLeft.delay(400)} style={styles.interestsSection}>
+                        <View style={styles.interestsGrid}>
+                            {Object.entries(TECH_INTERESTS).map(([key, interest], index) => (
+                                <TouchableOpacityAnimated
+                                    key={key}
+                                    entering={FadeInUp.delay(600 + index * 100)}
+                                    onPress={() => toggleInterest(key)}
+                                    activeOpacity={0.8}
                                 >
-                                    <Text style={styles.interestIcon}>{interest.icon}</Text>
-                                    <NeoBrutalismText
-                                        variant="subheading"
-                                        color="primary"
-                                        style={styles.interestName}
+                                    <NeoBrutalismCard
+                                        variant={selectedInterests.includes(key) ? 'accent' : 'default'}
+                                        padding="lg"
+                                        style={styles.interestCard}
                                     >
-                                        {interest.name}
-                                    </NeoBrutalismText>
-                                    <NeoBrutalismText
-                                        variant="caption"
-                                        color="secondary"
-                                        style={styles.interestDescription}
-                                    >
-                                        {interest.description}
-                                    </NeoBrutalismText>
-                                </NeoBrutalismCard>
-                            </TouchableOpacityAnimated>
-                        ))}
-                    </View>
-                </Animated.View>
+                                        <Text style={styles.interestIcon}>{interest.icon}</Text>
+                                        <NeoBrutalismText
+                                            variant="subheading"
+                                            color="primary"
+                                            style={styles.interestName}
+                                        >
+                                            {interest.name}
+                                        </NeoBrutalismText>
+                                        <NeoBrutalismText
+                                            variant="caption"
+                                            color="secondary"
+                                            style={styles.interestDescription}
+                                        >
+                                            {interest.description}
+                                        </NeoBrutalismText>
+                                    </NeoBrutalismCard>
+                                </TouchableOpacityAnimated>
+                            ))}
+                        </View>
+                    </Animated.View>
+                </ScrollView>
 
                 {/* Finish Button */}
                 <Animated.View entering={SlideInLeft.delay(1000)} style={styles.buttonContainer}>
