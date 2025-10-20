@@ -1,10 +1,11 @@
 import MainDashboardHeader from '@/components/main-dashboard/Header';
 import QuizCarousel from '@/components/main-dashboard/QuizCarousel';
+import QuizStartModal from '@/components/main-dashboard/QuizStartModal';
 import RecentQuizzes from '@/components/main-dashboard/RecentQuizzes';
 import { NeoBrutalismCard, NeoBrutalismText } from '@/components/neo-brutalism';
 import { Colors } from '@/constants/theme';
 import { useTheme } from '@/contexts/ThemeContext';
-import { QuizResult, User } from '@/types';
+import { Category, QuizResult, User } from '@/types';
 import { ResultsStorage, UserStorage } from '@/utils/storage';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -15,6 +16,8 @@ export default function DashboardHomeScreen() {
     const [user, setUser] = useState<User | null>(null);
     const [recentQuizzes, setRecentQuizzes] = useState<QuizResult[]>([]);
     const [loading, setLoading] = useState(true);
+    const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         const loadUserData = async () => {
@@ -39,6 +42,22 @@ export default function DashboardHomeScreen() {
         loadUserData();
     }, []);
 
+    const handleCategoryPress = (category: Category) => {
+        setSelectedCategory(category);
+        setModalVisible(true);
+    };
+
+    const handleStartQuiz = () => {
+        setModalVisible(false);
+        // TODO: Navigate to quiz screen
+        console.log('Starting quiz for category:', selectedCategory?.name);
+    };
+
+    const handleCloseModal = () => {
+        setModalVisible(false);
+        setSelectedCategory(null);
+    };
+
     if (loading) {
         return (
             <SafeAreaView style={[styles.container, { backgroundColor: isDark ? Colors.dark.background : Colors.light.background }]}>
@@ -59,9 +78,16 @@ export default function DashboardHomeScreen() {
                 <MainDashboardHeader user={user} points={user?.stats?.totalGames ?? 0} />
             </View>
             <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
-                <QuizCarousel />
+                <QuizCarousel onCategoryPress={handleCategoryPress} />
                 <RecentQuizzes recentQuizzes={recentQuizzes} />
             </ScrollView>
+
+            <QuizStartModal
+                visible={modalVisible}
+                category={selectedCategory}
+                onClose={handleCloseModal}
+                onStartQuiz={handleStartQuiz}
+            />
         </SafeAreaView>
     );
 }

@@ -4,14 +4,14 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { Category } from '@/types';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 type QuizItemProps = {
     category: Category;
     onPress?: (category: Category) => void;
 };
 
-export default function QuizItem({ category }: QuizItemProps) {
+export default function QuizItem({ category, onPress }: QuizItemProps) {
     const { isDark } = useTheme();
     const iconName = getMaterialIconForCategory(category.id);
 
@@ -24,12 +24,18 @@ export default function QuizItem({ category }: QuizItemProps) {
                 backgroundColor: isDark ? Colors.dark.cardBackground : Colors.light.cardBackground,
             }}
         >
-            <View style={[styles.iconBadge, { backgroundColor: category.color }]}>
-                <MaterialIcons name={iconName} size={24} color="#000" />
-            </View>
-            <NeoBrutalismText variant="body" color="primary" style={styles.name}>
-                {category.name}
-            </NeoBrutalismText>
+            <TouchableOpacity
+                style={styles.touchableCard}
+                onPress={() => onPress?.(category)}
+                activeOpacity={0.8}
+            >
+                <View style={[styles.iconBadge, { backgroundColor: category.color }]}>
+                    <MaterialIcons name={iconName} size={24} color="#000" />
+                </View>
+                <NeoBrutalismText variant="body" color="primary" style={styles.name}>
+                    {category.name}
+                </NeoBrutalismText>
+            </TouchableOpacity>
         </NeoBrutalismCard>
     );
 }
@@ -57,6 +63,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 8,
         marginRight: 12,
+    },
+    touchableCard: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 8,
     },
     iconBadge: {
         width: 44,

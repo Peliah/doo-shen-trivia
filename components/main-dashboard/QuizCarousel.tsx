@@ -1,8 +1,14 @@
 import { CATEGORIES } from '@/constants/data'
+import { Category } from '@/types'
 import React from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import QuizItem from './QuizItem'
-const QuizCarousel = () => {
+
+type QuizCarouselProps = {
+    onCategoryPress?: (category: Category) => void;
+};
+
+const QuizCarousel = ({ onCategoryPress }: QuizCarouselProps) => {
     return (
         <View>
             <FlatList
@@ -11,7 +17,7 @@ const QuizCarousel = () => {
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={styles.listContent}
-                renderItem={({ item }) => (<QuizItem category={item} />)}
+                renderItem={({ item }) => (<QuizItem category={item} onPress={onCategoryPress} />)}
             />
         </View>
     )
