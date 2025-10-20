@@ -27,24 +27,11 @@ export default function QuestionCard({ question, selectedAnswer, onAnswerSelect 
         >
             <View style={styles.imageContainer}>
                 <Image source={getRandomWorker()} style={styles.image} />
-                {/* Question Text */}
                 <NeoBrutalismText variant="subheading" color="primary" style={styles.questionText}>
                     {question.question}
                 </NeoBrutalismText>
             </View>
 
-            {/* Code Snippet (if applicable) */}
-            {question.codeSnippet && (
-                <View style={styles.codeContainer}>
-                    <NeoBrutalismCard variant="dark" padding="base" style={styles.codeBlock}>
-                        <NeoBrutalismText variant="body" color="primary" style={styles.codeText}>
-                            {question.codeSnippet}
-                        </NeoBrutalismText>
-                    </NeoBrutalismCard>
-                </View>
-            )}
-
-            {/* Multiple Choice Options */}
             <View style={styles.optionsContainer}>
                 {question.options.map((option, index) => (
                     <TouchableOpacity

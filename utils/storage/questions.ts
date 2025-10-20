@@ -42,7 +42,7 @@ export const analyzeQuestionPerformance = (questionId: string, userAnswer: numbe
 
 export const getQuestionDifficultyMultiplier = (difficulty: 'medium' | 'medium' | 'hard'): number => {
     switch (difficulty) {
-        case 'easy': return 1;
+        // case 'easy': return 1;
         case 'medium': return 1.5;
         case 'hard': return 2;
         default: return 1;

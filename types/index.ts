@@ -98,6 +98,7 @@ export interface QuizResult {
     createdAt: string;
 }
 
+
 export interface QuestionResult {
     question: Question;
     userAnswer: string;
