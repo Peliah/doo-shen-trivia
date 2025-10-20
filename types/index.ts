@@ -49,39 +49,42 @@ export interface Category {
 
 // Question Schema
 export interface Question {
-    id: string;
+    questionId: string;
     category: string;
     difficulty: 'easy' | 'medium' | 'hard';
+    type: 'multiple_choice' | 'true_false' | 'code_output' | 'fill_blank';
     question: string;
     codeSnippet?: string;
     options: string[];
-    correctAnswer: string;
+    correctAnswer: number; // Index of correct option (0-3)
     explanation: string;
-    referenceLink?: string;
+    reference?: string;
     tags: string[];
 }
 
 // Quiz and Game State
 export interface QuizSession {
-    id: string;
+    sessionId: string;
     userId: string;
+    mode: 'single_player' | 'multiplayer';
     category: string;
     difficulty: 'easy' | 'medium' | 'hard';
-    questions: Question[];
+    questions: string[]; // Array of question IDs
     answers: Answer[];
+    score?: number;
+    totalQuestions: number;
+    completedAt?: string;
     startTime: string;
     endTime?: string;
-    score?: number;
     timeTaken?: number;
     isCompleted: boolean;
 }
 
 export interface Answer {
     questionId: string;
-    selectedAnswer: string;
+    selectedAnswer: number; // Index of selected option (0-3)
     isCorrect: boolean;
-    timeSpent: number;
-    timestamp: string;
+    timeSpent: number; // Time spent on this question in seconds
 }
 
 export interface QuizResult {

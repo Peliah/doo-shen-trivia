@@ -1,4 +1,4 @@
-import { AvatarOption, Category, DifficultyLevel, TechInterest } from '@/types';
+import { AvatarOption, Category, DifficultyLevel, Question, TechInterest } from '@/types';
 
 // Tech Interests Configuration
 export const TECH_INTERESTS: Record<TechInterest, { name: string; description: string; icon: string }> = {
@@ -119,12 +119,13 @@ export const AVATAR_OPTIONS: AvatarOption[] = [
     { id: 'astronaut', name: 'Space Explorer', emoji: '🚀', color: '#F7DC6F' },
 ];
 
-// Sample Questions (This would typically come from an API or database)
-export const SAMPLE_QUESTIONS = [
-    {
-        id: 'js-1',
+// Sample Questions Database (This would typically come from an API or database)
+export const QUESTIONS_DATABASE: Record<string, Question> = {
+    'js-1': {
+        questionId: 'js-1',
         category: 'javascript',
-        difficulty: 'easy' as const,
+        difficulty: 'easy',
+        type: 'multiple_choice',
         question: 'What is the correct way to declare a variable in JavaScript?',
         options: [
             'var name = "John";',
@@ -132,25 +133,42 @@ export const SAMPLE_QUESTIONS = [
             'v name = "John";',
             'declare name = "John";',
         ],
-        correctAnswer: 'var name = "John";',
+        correctAnswer: 0,
         explanation: 'In JavaScript, variables are declared using var, let, or const keywords.',
+        reference: 'MDN JavaScript Variables',
         tags: ['variables', 'declaration'],
     },
-    {
-        id: 'js-2',
+    'js-2': {
+        questionId: 'js-2',
         category: 'javascript',
-        difficulty: 'medium' as const,
-        question: 'What will be the output of this code?\n\nconst arr = [1, 2, 3];\narr.push(4);\nconsole.log(arr.length);',
+        difficulty: 'medium',
+        type: 'code_output',
+        question: 'What will be the output of this code?',
         codeSnippet: 'const arr = [1, 2, 3];\narr.push(4);\nconsole.log(arr.length);',
         options: ['3', '4', '5', 'undefined'],
-        correctAnswer: '4',
+        correctAnswer: 1,
         explanation: 'The push() method adds an element to the end of the array, so the length becomes 4.',
+        reference: 'MDN Array.push()',
         tags: ['arrays', 'methods'],
     },
-    {
-        id: 'react-1',
+    'js-3': {
+        questionId: 'js-3',
+        category: 'javascript',
+        difficulty: 'hard',
+        type: 'code_output',
+        question: 'What is the output of this closure example?',
+        codeSnippet: 'function outer() {\n  let x = 10;\n  return function inner() {\n    return x++;\n  };\n}\nconst fn = outer();\nconsole.log(fn());\nconsole.log(fn());',
+        options: ['10, 11', '10, 10', '11, 12', 'undefined, undefined'],
+        correctAnswer: 0,
+        explanation: 'The inner function has access to the outer function\'s variable x, and the post-increment operator returns the value before incrementing.',
+        reference: 'MDN Closures',
+        tags: ['closures', 'scope'],
+    },
+    'react-1': {
+        questionId: 'react-1',
         category: 'react',
-        difficulty: 'easy' as const,
+        difficulty: 'easy',
+        type: 'multiple_choice',
         question: 'What is JSX in React?',
         options: [
             'A JavaScript extension that allows HTML-like syntax',
@@ -158,11 +176,125 @@ export const SAMPLE_QUESTIONS = [
             'A build tool',
             'A testing framework',
         ],
-        correctAnswer: 'A JavaScript extension that allows HTML-like syntax',
+        correctAnswer: 0,
         explanation: 'JSX is a syntax extension for JavaScript that allows you to write HTML-like code in your JavaScript files.',
+        reference: 'React JSX Documentation',
         tags: ['jsx', 'syntax'],
     },
-];
+    'react-2': {
+        questionId: 'react-2',
+        category: 'react',
+        difficulty: 'medium',
+        type: 'multiple_choice',
+        question: 'What is the correct way to update state in a functional component?',
+        options: [
+            'this.setState({ count: 1 })',
+            'setState({ count: 1 })',
+            'setCount(1)',
+            'state.count = 1',
+        ],
+        correctAnswer: 2,
+        explanation: 'In functional components, you use the setter function returned by useState hook to update state.',
+        reference: 'React useState Hook',
+        tags: ['hooks', 'state'],
+    },
+    'python-1': {
+        questionId: 'python-1',
+        category: 'python',
+        difficulty: 'easy',
+        type: 'multiple_choice',
+        question: 'What is the correct way to create a list in Python?',
+        options: [
+            'list = [1, 2, 3]',
+            'list = (1, 2, 3)',
+            'list = {1, 2, 3}',
+            'list = "1, 2, 3"',
+        ],
+        correctAnswer: 0,
+        explanation: 'Lists in Python are created using square brackets [] and can contain any data type.',
+        reference: 'Python Lists Documentation',
+        tags: ['lists', 'data-structures'],
+    },
+    'web-1': {
+        questionId: 'web-1',
+        category: 'web-development',
+        difficulty: 'easy',
+        type: 'multiple_choice',
+        question: 'What does HTML stand for?',
+        options: [
+            'HyperText Markup Language',
+            'High Tech Modern Language',
+            'Home Tool Markup Language',
+            'Hyperlink and Text Markup Language',
+        ],
+        correctAnswer: 0,
+        explanation: 'HTML stands for HyperText Markup Language, which is the standard markup language for creating web pages.',
+        reference: 'MDN HTML Introduction',
+        tags: ['html', 'basics'],
+    },
+    'js-4': {
+        questionId: 'js-4',
+        category: 'javascript',
+        difficulty: 'medium',
+        type: 'true_false',
+        question: 'JavaScript is a statically typed language.',
+        options: ['True', 'False'],
+        correctAnswer: 1,
+        explanation: 'JavaScript is dynamically typed, meaning variable types are determined at runtime.',
+        reference: 'MDN JavaScript Data Types',
+        tags: ['typing', 'basics'],
+    },
+    'react-3': {
+        questionId: 'react-3',
+        category: 'react',
+        difficulty: 'hard',
+        type: 'code_output',
+        question: 'What will be logged to the console?',
+        codeSnippet: 'const [count, setCount] = useState(0);\nuseEffect(() => {\n  setCount(count + 1);\n}, [count]);\nconsole.log(count);',
+        options: ['0', '1', 'Infinite loop', 'Error'],
+        correctAnswer: 2,
+        explanation: 'This creates an infinite loop because useEffect depends on count, but also updates count inside the effect.',
+        reference: 'React useEffect Hook',
+        tags: ['hooks', 'effects', 'infinite-loop'],
+    },
+};
+
+// Question Selection Utilities
+export const getQuestionsByCategory = (category: string, difficulty?: 'easy' | 'medium' | 'hard'): Question[] => {
+    const questions = Object.values(QUESTIONS_DATABASE).filter(q => q.category === category);
+    return difficulty ? questions.filter(q => q.difficulty === difficulty) : questions;
+};
+
+export const getRandomQuestions = (category: string, difficulty: 'easy' | 'medium' | 'hard', count: number = 10): string[] => {
+    const questions = getQuestionsByCategory(category, difficulty);
+    const shuffled = questions.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count).map(q => q.questionId);
+};
+
+export const getQuestionById = (id: string): Question | undefined => {
+    return QUESTIONS_DATABASE[id];
+};
+
+// Question Type Utilities
+export const getQuestionTypeIcon = (type: Question['type']): string => {
+    switch (type) {
+        case 'multiple_choice': return '📝';
+        case 'true_false': return '✅';
+        case 'code_output': return '💻';
+        case 'fill_blank': return '✏️';
+        default: return '❓';
+    }
+};
+
+export const getQuestionTypeLabel = (type: Question['type']): string => {
+    switch (type) {
+        case 'multiple_choice': return 'Multiple Choice';
+        case 'true_false': return 'True/False';
+        case 'code_output': return 'Code Output';
+        case 'fill_blank': return 'Fill in the Blank';
+        default: return 'Unknown';
+    }
+};
 
 // Achievement Definitions
 export const ACHIEVEMENT_DEFINITIONS = {
