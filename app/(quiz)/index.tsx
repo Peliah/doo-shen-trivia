@@ -116,6 +116,7 @@ export default function QuizScreen() {
                     correctAnswers: correctAnswers.toString(),
                     totalQuestions: questions.length.toString(),
                     timeTaken: timeTaken.toString(),
+                    sessionId: quizResult.sessionId,
                 },
             });
         } catch (error) {
@@ -129,6 +130,7 @@ export default function QuizScreen() {
                     correctAnswers: '0',
                     totalQuestions: questions.length.toString(),
                     timeTaken: timeTaken.toString(),
+                    sessionId: `quiz_${Date.now()}`,
                 },
             });
         }

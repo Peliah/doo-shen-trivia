@@ -1,9 +1,12 @@
 import ActionButtons from '@/components/result-review/ActionButtons';
 import MainMetrics from '@/components/result-review/MainMetrics';
+import QuestionReview from '@/components/result-review/QuestionReview';
 import { Colors } from '@/constants/theme';
 import { useTheme } from '@/contexts/ThemeContext';
+import { QuestionResult } from '@/types';
+import { ResultsStorage } from '@/utils/storage';
 import { router, useLocalSearchParams } from 'expo-router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -15,7 +18,11 @@ export default function ResultScreen() {
         correctAnswers: string;
         totalQuestions: string;
         timeTaken: string;
+        sessionId?: string;
     }>();
+
+    const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
+    const [loading, setLoading] = useState(true);
 
     const score = parseInt(params.score || '0');
     const correctAnswers = parseInt(params.correctAnswers || '0');
@@ -31,13 +38,24 @@ export default function ResultScreen() {
 
     const performanceLevel = getPerformanceLevel(score);
 
-    // Mock category breakdown - in real app, this would come from the quiz result
-    const categoryBreakdown = [{
-        category: params.categoryId || 'javascript',
-        correct: correctAnswers,
-        total: totalQuestions,
-        percentage: score,
-    }];
+    useEffect(() => {
+        const loadQuizResult = async () => {
+            try {
+                if (params.sessionId) {
+                    const quizResult = await ResultsStorage.getQuizResult(params.sessionId);
+                    if (quizResult) {
+                        setQuestionResults(quizResult.questions);
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading quiz result:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadQuizResult();
+    }, [params.sessionId]);
 
     const handleDetailedReview = () => {
         // TODO: Navigate to detailed review screen
@@ -56,6 +74,14 @@ export default function ResultScreen() {
         router.replace('/(dashboard)' as any);
     };
 
+    if (loading) {
+        return (
+            <SafeAreaView style={[styles.container, { backgroundColor: isDark ? Colors.dark.background : Colors.light.background }]}>
+                {/* Loading state */}
+            </SafeAreaView>
+        );
+    }
+
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: isDark ? Colors.dark.background : Colors.light.background }]}>
             <ScrollView
@@ -72,11 +98,10 @@ export default function ResultScreen() {
                     performanceLevel={performanceLevel}
                 />
 
-                {/* Progress Circle */}
-                {/* <ProgressCircle score={score} /> */}
-
-                {/* Category Performance */}
-                {/* <CategoryPerformanceBars categoryBreakdown={categoryBreakdown} /> */}
+                {/* Question Review */}
+                {questionResults.length > 0 && (
+                    <QuestionReview questions={questionResults} />
+                )}
 
                 {/* Action Buttons */}
                 <ActionButtons
